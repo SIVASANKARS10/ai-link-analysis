@@ -95,9 +95,7 @@ GEMINI_API_KEY=your_gemini_api_key
 GEMINI_MODEL=gemini-3.5-flash-lite
 ```
 
-Get your API key from Google AI Studio:
-
-https://aistudio.google.com/apikey
+Get your API key from [Google AI Studio](https://aistudio.google.com/apikey).
 
 Never upload your actual API key or `.env` file to GitHub.
 
@@ -107,11 +105,11 @@ Never upload your actual API key or `.env` file to GitHub.
 python -m uvicorn app.main:app --host 127.0.0.1 --port 4000 --reload
 ```
 
-Local API:
+**Local API:**
 
 http://127.0.0.1:4000
 
-Swagger Documentation:
+**Swagger Documentation:**
 
 http://127.0.0.1:4000/docs
 
@@ -178,104 +176,14 @@ https://ai-link-analysis-dzge.onrender.com/docs
 
 ## LLM Provider Comparison
 
-Three LLM providers were considered for website content analysis.
+Three LLM providers were considered for website content analysis: Google Gemini, OpenAI, and Anthropic Claude.
 
 ### Model and Pricing Comparison
 
-Prices are standard API rates in USD per one million tokens. Pricing may change depending on provider, usage tier, and prompt length.
+The following table compares representative models from each provider. Prices are in USD per one million tokens and refer to standard API input and output rates.
 
 | Criteria | Google Gemini | OpenAI | Anthropic Claude |
 |---|---|---|---|
 | Model | Gemini 3.5 Flash-Lite | GPT-6 Luna | Claude Haiku 5.5 |
-| Input price | $0.54 | $0.05 | $0.10* |
-| Output price | $4.50 | $0.25 | $0.50* |
-| Context window | 1,048,576 tokens | 1,050,000 tokens | Refer to model documentation |
-| Structured JSON output | Supported | Supported | Supported |
-| Provider | Google | OpenAI | Anthropic |
-
-*Claude Haiku 5.5 standard pricing shown is for prompts up to 100,000 tokens. Higher rates apply to longer prompts.
-
-### Speed and Accuracy Evaluation
-
-A fair performance comparison requires testing all three providers using the same website content, prompts, output schema, and evaluation criteria.
-
-The following metrics can be used:
-
-| Metric | Evaluation Method |
-|---|---|
-| Response speed | Measure API response time in milliseconds |
-| Accuracy | Compare generated information with verified website content |
-| JSON validity | Validate output against the required schema |
-| Token usage | Record input and output tokens |
-| API cost | Calculate cost using actual token consumption |
-
-No measured speed or accuracy ranking is claimed because comparative benchmark tests have not yet been performed.
-
-### Cost Optimization Strategies
-
-- Remove unnecessary HTML elements before sending website content to the LLM.
-- Limit the amount of extracted text included in each request.
-- Use structured JSON output for consistent responses.
-- Cache repeated website analysis results.
-- Avoid unnecessary repeated API calls.
-- Select a cost-effective model based on task complexity.
-- Limit generated output to the required fields.
-
-### Recommended Provider
-
-Google Gemini 3.5 Flash-Lite is currently integrated into this project.
-
-It supports structured output, has a large context window, and is designed for cost-efficient tasks such as content extraction and analysis.
-
-Gemini was selected for the current implementation. OpenAI and Anthropic are considered alternative providers for future integration and benchmarking.
-
-## Testing
-
-Run automated tests using:
-
-```bash
-python -m pytest -v
-```
-
-Current test coverage includes:
-
-- Home endpoint.
-- Successful link analysis response.
-- Invalid URL validation.
-- Analysis failure handling.
-
-## Security and Limitations
-
-- Validates website URLs before fetching.
-- Checks redirect destinations.
-- Uses request timeouts.
-- Limits downloaded website content to 2 MB.
-- Keeps API credentials in environment variables.
-- Some websites may block automated requests or return HTTP 403.
-- AI-generated analysis may contain inaccuracies and should be verified.
-- URL validation should be strengthened and reviewed against SSRF and DNS rebinding risks before production use.
-
-## Future Improvements
-
-- Integrate additional LLM providers.
-- Implement verified competitor research.
-- Improve SEO keyword research using external data sources.
-- Add performance monitoring and caching.
-- Strengthen SSRF protection and automated security testing.
-- Conduct comparative LLM performance benchmarks.
-
-## Official LLM References
-
-- [Google Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing)
-- [Google Gemini Structured Outputs](https://ai.google.dev/gemini-api/docs/structured-output)
-- [OpenAI API Pricing](https://developers.openai.com/api/docs/pricing)
-- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
-- [Anthropic Claude Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
-- [Anthropic Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-## Author
-
-**Siva Sankar S**
-
-- GitHub: https://github.com/SIVASANKARS10
-- LinkedIn: https://www.linkedin.com/in/siva-sankar-s-312356300
+| Input price | $0.30 | $0.05 | $0.10* |
+| Output
