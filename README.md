@@ -185,5 +185,70 @@ The following table compares representative models from each provider. Prices ar
 | Criteria | Google Gemini | OpenAI | Anthropic Claude |
 |---|---|---|---|
 | Model | Gemini 3.5 Flash-Lite | GPT-6 Luna | Claude Haiku 5.5 |
-| Input price | $0.30 | $0.05 | $0.10* |
-| Output
+| Input price | $0.30 | $0.10 | $0.10* |
+| Output price | $2.50 | $0.50 | $0.50* |
+| Context window | 1M tokens | 1.05M tokens | 1M tokens |
+| Structured JSON output | Supported | Supported | Supported |
+| Speed | Optimized for high-volume tasks | Efficient for focused tasks | Optimized for low-latency tasks |
+| Accuracy | Not independently benchmarked | Not independently benchmarked | Not independently benchmarked |
+
+*Claude Haiku 5.5 pricing applies to prompts up to 100K tokens. Higher pricing applies to longer prompts. OpenAI pricing shown is for standard processing and prompts within the applicable short-context pricing tier.*
+
+**Official Pricing References:**
+
+- [Google Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- [OpenAI API Pricing](https://developers.openai.com/api/docs/pricing)
+- [Anthropic Claude API Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
+
+### Performance Comparison
+
+The three providers offer models suitable for website content analysis, structured data extraction, and AI-generated recommendations.
+
+- **Google Gemini:** Suitable for cost-efficient website analysis and high-volume processing.
+- **OpenAI:** Offers efficient models for focused tasks and structured responses.
+- **Anthropic Claude:** Offers models designed for fast extraction, classification, and content analysis.
+
+No direct speed or accuracy benchmark was performed as part of this project. Actual performance depends on input size, prompt design, model configuration, and API response time.
+
+### Cost Optimization
+
+The following techniques can help reduce API costs:
+
+- Extract only relevant website content before sending it to the LLM.
+- Remove unnecessary HTML elements such as scripts, styles, and navigation content.
+- Limit the input text size.
+- Use a cost-efficient model for routine analysis.
+- Request structured JSON output to simplify response processing.
+
+### Recommended Provider
+
+Google Gemini was selected for this project because it integrates with the existing Python application through the Google GenAI SDK and supports structured JSON responses.
+
+The application currently uses Gemini for website analysis. OpenAI and Anthropic were considered for comparison but are not integrated into the current implementation.
+
+## Security and Limitations
+
+- Validates website URLs before fetching content.
+- Checks redirect destinations to reduce SSRF risks.
+- Handles inaccessible websites and invalid requests.
+- Keeps API credentials in environment variables.
+- Uses Pydantic to validate structured API responses.
+- AI-generated competitor details and recommendations may require independent verification.
+- URL validation and redirect checks do not eliminate every possible SSRF or DNS-rebinding risk.
+
+## Future Improvements
+
+- Integrate additional LLM providers.
+- Add website analysis history.
+- Improve competitor discovery using external data sources.
+- Add SEO scoring and keyword analysis.
+- Implement stronger DNS-level SSRF protection.
+- Add performance benchmarking across LLM providers.
+
+## Author
+
+**Siva Sankar S**
+
+GitHub: https://github.com/SIVASANKARS10
+
+LinkedIn: https://www.linkedin.com/in/siva-sankar-s-312356300
