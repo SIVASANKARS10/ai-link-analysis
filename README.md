@@ -1,20 +1,20 @@
-
 # AI-Powered Website Link Analysis API
 
-An AI-powered REST API that analyzes website content and generates business insights, competitor comparisons, SEO recommendations, target search queries, services, and target audience information.
+An AI-powered REST API that analyzes website content and generates business insights, competitor comparisons, SEO recommendations, target search queries, top services, and target audience information using Google Gemini.
 
 ## Features
 
 - Website content extraction using HTTPX and BeautifulSoup.
 - AI-powered website analysis using Google Gemini.
-- Competitor vs brand comparison.
-- Five search queries for Google, Facebook, Instagram, LinkedIn, and X.
+- Competitor vs. brand comparison.
+- Five target search queries for Google, Facebook, Instagram, LinkedIn, and X.
 - SEO keyword and meta description recommendations.
-- Identification of top website services.
+- Identification of the top five website services.
 - Target audience analysis.
 - Structured JSON responses using Pydantic.
-- URL validation and redirect checking.
+- URL validation and redirect destination checking.
 - Automated API testing using Pytest.
+- REST API documentation using Swagger UI.
 
 ## Tech Stack
 
@@ -24,7 +24,7 @@ An AI-powered REST API that analyzes website content and generates business insi
 | FastAPI | REST API development |
 | HTTPX | Website requests |
 | BeautifulSoup | HTML parsing |
-| Google Gemini | AI analysis |
+| Google Gemini | AI-powered analysis |
 | Pydantic | Data validation |
 | Pytest | Automated testing |
 | Uvicorn | API server |
@@ -59,20 +59,20 @@ ai-link-analysis/
 
 ## Installation and Setup
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/SIVASANKARS10/ai-link-analysis.git
 cd ai-link-analysis
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### 3. Activate the environment
+### 3. Activate the Environment
 
 Windows PowerShell:
 
@@ -80,15 +80,15 @@ Windows PowerShell:
 .\venv\Scripts\Activate.ps1
 ```
 
-### 4. Install dependencies
+### 4. Install Dependencies
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### 5. Configure environment variables
+### 5. Configure Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root directory:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
@@ -97,33 +97,29 @@ GEMINI_MODEL=gemini-3.5-flash-lite
 
 Get your API key from Google AI Studio:
 
-https://aistudio.google.com/
+https://aistudio.google.com/apikey
 
 Never upload your actual API key or `.env` file to GitHub.
 
-### 6. Start the server
+### 6. Start the Server
 
 ```bash
 python -m uvicorn app.main:app --host 127.0.0.1 --port 4000 --reload
 ```
 
-API base URL:
+Local API:
 
-```text
 http://127.0.0.1:4000
-```
 
-Swagger documentation:
+Swagger Documentation:
 
-```text
 http://127.0.0.1:4000/docs
-```
 
 ## API Usage
 
 ### POST /link-analysis
 
-Analyzes the provided website URL.
+Analyzes the provided website URL and returns structured business and SEO insights.
 
 **Request Body**
 
@@ -164,11 +160,78 @@ Analyzes the provided website URL.
 }
 ```
 
-The response contains AI-generated recommendations based on the extracted website content. Competitor information and other inferences should be independently verified.
+The response contains AI-generated recommendations based on extracted website content. Competitor information and other AI-generated inferences should be independently verified.
+
+## Live Deployment
+
+**Live API:**
+
+https://ai-link-analysis-dzge.onrender.com
+
+**Swagger API Documentation:**
+
+https://ai-link-analysis-dzge.onrender.com/docs
+
+**API Endpoint:**
+
+`POST https://ai-link-analysis-dzge.onrender.com/link-analysis`
+
+## LLM Provider Comparison
+
+Three LLM providers were considered for website content analysis.
+
+### Model and Pricing Comparison
+
+Prices are standard API rates in USD per one million tokens. Pricing may change depending on provider, usage tier, and prompt length.
+
+| Criteria | Google Gemini | OpenAI | Anthropic Claude |
+|---|---|---|---|
+| Model | Gemini 3.5 Flash-Lite | GPT-6 Luna | Claude Haiku 5.5 |
+| Input price | $0.54 | $0.05 | $0.10* |
+| Output price | $4.50 | $0.25 | $0.50* |
+| Context window | 1,048,576 tokens | 1,050,000 tokens | Refer to model documentation |
+| Structured JSON output | Supported | Supported | Supported |
+| Provider | Google | OpenAI | Anthropic |
+
+*Claude Haiku 5.5 standard pricing shown is for prompts up to 100,000 tokens. Higher rates apply to longer prompts.
+
+### Speed and Accuracy Evaluation
+
+A fair performance comparison requires testing all three providers using the same website content, prompts, output schema, and evaluation criteria.
+
+The following metrics can be used:
+
+| Metric | Evaluation Method |
+|---|---|
+| Response speed | Measure API response time in milliseconds |
+| Accuracy | Compare generated information with verified website content |
+| JSON validity | Validate output against the required schema |
+| Token usage | Record input and output tokens |
+| API cost | Calculate cost using actual token consumption |
+
+No measured speed or accuracy ranking is claimed because comparative benchmark tests have not yet been performed.
+
+### Cost Optimization Strategies
+
+- Remove unnecessary HTML elements before sending website content to the LLM.
+- Limit the amount of extracted text included in each request.
+- Use structured JSON output for consistent responses.
+- Cache repeated website analysis results.
+- Avoid unnecessary repeated API calls.
+- Select a cost-effective model based on task complexity.
+- Limit generated output to the required fields.
+
+### Recommended Provider
+
+Google Gemini 3.5 Flash-Lite is currently integrated into this project.
+
+It supports structured output, has a large context window, and is designed for cost-efficient tasks such as content extraction and analysis.
+
+Gemini was selected for the current implementation. OpenAI and Anthropic are considered alternative providers for future integration and benchmarking.
 
 ## Testing
 
-Run automated tests:
+Run automated tests using:
 
 ```bash
 python -m pytest -v
@@ -190,21 +253,29 @@ Current test coverage includes:
 - Keeps API credentials in environment variables.
 - Some websites may block automated requests or return HTTP 403.
 - AI-generated analysis may contain inaccuracies and should be verified.
-- URL validation should be reviewed and strengthened before public production deployment.
+- URL validation should be strengthened and reviewed against SSRF and DNS rebinding risks before production use.
 
 ## Future Improvements
 
-- Support additional LLM providers.
+- Integrate additional LLM providers.
 - Implement verified competitor research.
-- Improve SEO keyword research.
-- Add deployment and monitoring.
-- Improve SSRF protection and automated security testing.
+- Improve SEO keyword research using external data sources.
+- Add performance monitoring and caching.
+- Strengthen SSRF protection and automated security testing.
+- Conduct comparative LLM performance benchmarks.
+
+## Official LLM References
+
+- [Google Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- [Google Gemini Structured Outputs](https://ai.google.dev/gemini-api/docs/structured-output)
+- [OpenAI API Pricing](https://developers.openai.com/api/docs/pricing)
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+- [Anthropic Claude Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
+- [Anthropic Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
 ## Author
 
-Siva Sankar S
+**Siva Sankar S**
 
-GitHub: https://github.com/SIVASANKARS10
-
-LinkedIn: https://www.linkedin.com/in/siva-sankar-s-312356300
-```
+- GitHub: https://github.com/SIVASANKARS10
+- LinkedIn: https://www.linkedin.com/in/siva-sankar-s-312356300
